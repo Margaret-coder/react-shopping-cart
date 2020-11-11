@@ -1,6 +1,6 @@
 import React from 'react';
 import { Counter } from './features/counter/Counter';
-
+//feature 1
 function App() {
   return (
     <div className="grid-container">
