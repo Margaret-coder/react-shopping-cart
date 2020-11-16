@@ -25,9 +25,6 @@ class App extends React.Component {
 
   removeFromCart = (product)=>{
     const cartItems = this.state.cartItems.slice()
-    cartItems.forEach(x=>console.log("condition: equals id", x._id === product._id))
-    cartItems.forEach(x=>console.log("x._id", x._id))
-    cartItems.forEach(x=>console.log("product._id", product._id))
     this.setState({
       cartItems : cartItems.filter(x=>x._id !== product._id)
     })
