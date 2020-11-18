@@ -1,9 +1,11 @@
 //feature 1
 import React from 'react';
+import { Provider } from 'react-redux';
 import Cart from './Components/Cart';
 import Filter from './Components/Filter';
 import Products from './Components/Products';
 import data from "./data.json";
+import store from './store'
 
 class App extends React.Component {
   constructor(){
@@ -45,12 +47,11 @@ class App extends React.Component {
       cartItems.push({...product, count: 1})
     }
     this.setState({cartItems : cartItems})
-    localStorage.setItem("cartItems", JSON.stringify(cartItems))
+    localStorage.setItem("cartItems", JSON.stringify(this.state.cartItems))
   }
 
   sortProducts =(event)=>{
     const sort = event.target.value
-    console.log(event.target.value)
     this.setState((state) => ({
        sort: sort,
        products: this.state.products
@@ -71,7 +72,7 @@ class App extends React.Component {
      }))  
   }
   filterProducts = (event) =>{
-    console.log(event.target.value)
+    console.log("this.state.products:", this.state.products)
     if(event.target.value === ""){
       this.setState({size: event.target.value, 
         product: data.products})
@@ -89,7 +90,9 @@ class App extends React.Component {
     }
   }
   render(){
+    console.log("App.js render")
     return (
+      <Provider store={store}>
       <div className="grid-container">
         <header>
           <a href="/">React Shopping Cart</a>
@@ -102,7 +105,7 @@ class App extends React.Component {
               sort={this.state.sort}
               filterProducts={this.filterProducts}
               sortProducts={this.sortProducts}
-              ></Filter>
+              ></Filter>              
               <Products products={this.state.products}
               addToCart={this.addToCart}></Products>
             </div>
@@ -115,6 +118,7 @@ class App extends React.Component {
         </main>  
         <footer>All right is reserved</footer>  
       </div>
+      </Provider>
     );
   }
 }
