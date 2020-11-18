@@ -31,6 +31,7 @@ export default class Cart extends Component {
     }
 
     render() {
+        console.log("Cart.js render")
         const {cartItems} = this.props
         return (
             <div>
