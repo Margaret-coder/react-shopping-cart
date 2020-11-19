@@ -1,9 +1,11 @@
-import { FETCH_PRODUCTS, FILTER_PRODUCTS_BY_SIZE, ORDER_PRODUCTS_BY_PRICE } from "../types"
+import { FETCH_PRODUCTS } from "../types";
+import { FILTER_PRODUCTS_BY_SIZE, ORDER_PRODUCTS_BY_PRICE } from "../types";
 
+console.log("productActions.js")
 export const fetchProducts = () => async (dispatch) => {
+console.log("fetchProducts func")
   const res = await fetch("/api/products");
   const data = await res.json();
-  console.log("productActions fetchProducts func");
   console.log(data);
   dispatch({
     type: FETCH_PRODUCTS,
@@ -12,40 +14,40 @@ export const fetchProducts = () => async (dispatch) => {
 };
 
 export const filterProducts = (products, size) => (dispatch) => {
+console.log("filterProducts func")
   dispatch({
     type: FILTER_PRODUCTS_BY_SIZE,
     payload: {
       size: size,
-      items: 
+      items:
         size === ""
-        ? products:
-      products.filter((x) =>
-      x.availableSizes.indexOf(size) >= 0),
-    }
-  })  
-} 
-
-export const sortProducts = (filteredProducts, sort) =>
-  (dispatch) => {
-  const sortedProducts = filteredProducts.slice()
-  if(sort === "latest"){
-    sortedProducts.sort((a,b) => (a._id > b._id ? 1 : -1))
+          ? products
+          : products.filter((x) => x.availableSizes.indexOf(size) >= 0),
+    },
+  });
+};
+export const sortProducts = (filteredProducts, sort) => (dispatch) => {
+  console.log("sortProducts func")
+  const sortedProducts = filteredProducts.slice();
+  if (sort === "latest") {
+    sortedProducts.sort((a, b) => (a._id > b._id ? 1 : -1));
+  } else {
+    sortedProducts.sort((a, b) =>
+      sort === "lowest"
+        ? a.price > b.price
+          ? 1
+          : -1
+        : a.price > b.price
+        ? -1
+        : 1
+    );
   }
-  else{
-    sortedProducts.sort((a, b) => 
-      sort === "lowest" ? a.price > b.price? 1: -1
-      :
-      a.price > b.price? -1 : 1
-    )
-  }
-  dispatch(
-  {
+  console.log(sortedProducts);
+  dispatch({
     type: ORDER_PRODUCTS_BY_PRICE,
-    payload: 
-    {
+    payload: {
       sort: sort,
       items: sortedProducts,
-    }
-  })
-}
- 
+    },
+  });
+};
