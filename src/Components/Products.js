@@ -15,9 +15,9 @@ class Products extends Component {
     };
   }
   componentDidMount() {
-    console.log("start componentDidMount()")
     this.props.fetchProducts();
-    console.log("componentDidMount()")
+    console.log("Products.js componentDidMount()")
+    console.log("this.props.products", this.props.products)
   }
   openModal = (product) => {
     this.setState({ product });
@@ -26,9 +26,7 @@ class Products extends Component {
     this.setState({ product: null });
   };
   render() {
-    console.log("Products.js")
-    console.log("this.state",this.state)  
-    console.log("Products.js: this.props.products",this.props.products)  
+    console.log("Products.js render")
     const { product } = this.state;
     return (
       <div>
