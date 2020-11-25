@@ -3,10 +3,10 @@ import { FILTER_PRODUCTS_BY_SIZE, ORDER_PRODUCTS_BY_PRICE } from "../types";
 
 console.log("productActions.js")
 export const fetchProducts = () => async (dispatch) => {
-console.log("fetchProducts func")
+console.log("productActions.js fetchProducts: fetching ...")
   const res = await fetch("/api/products");
   const data = await res.json();
-  console.log(data);
+  console.log("productActions.js fetched data:", data);
   dispatch({
     type: FETCH_PRODUCTS,
     payload: data,
